@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Nueva Calificación</title>
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+</head>
+<body>
+    <h2>Crear Calificación Tributaria</h2>
+    <form method="post">
+        {% csrf_token %}
+        <label>RUT Empresa:</label><input type="text" name="rut_empresa" required>
+        <label>Año:</label><input type="number" name="anio" required>
+        <label>Instrumento:</label><input type="text" name="instrumento" required>
+        <label>Monto:</label><input type="number" step="0.01" name="monto" required>
+        <label>Moneda:</label>
+        <select name="moneda">
+            <option value="CLP">CLP - Peso Chileno</option>
+            <option value="PEN">PEN - Sol Peruano</option>
+            <option value="COP">COP - Peso Colombiano</option>
+        </select>
+        <button type="submit">Guardar</button>
+    </form>
+    <a href="{% url 'listar' %}">Volver al listado</a>
+</body>
+</html>

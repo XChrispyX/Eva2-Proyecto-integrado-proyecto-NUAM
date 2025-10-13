@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de Calificaciones</title>
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+</head>
+<body>
+    <h1>Calificaciones Tributarias</h1>
+    <a href="{% url 'crear' %}" class="boton">Nueva Calificación</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>RUT Empresa</th>
+                <th>Año</th>
+                <th>Instrumento</th>
+                <th>Monto</th>
+                <th>Moneda</th>
+                <th>Fecha</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for c in calificaciones %}
+            <tr>
+                <td>{{ c.rut_empresa }}</td>
+                <td>{{ c.anio }}</td>
+                <td>{{ c.instrumento }}</td>
+                <td>{{ c.monto }}</td>
+                <td>{{ c.moneda }}</td>
+                <td>{{ c.fecha_creacion|date:"d/m/Y" }}</td>
+                <td>
+                    <a href="{% url 'editar' c.id %}" class="boton editar">Editar</a>
+                    <a href="{% url 'eliminar' c.id %}" class="boton eliminar">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <script src="{% static 'js/funciones.js' %}"></script>
+</body>
+</html>

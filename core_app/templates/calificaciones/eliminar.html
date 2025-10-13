@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Eliminar Calificación</title>
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+</head>
+<body>
+    <h2>Confirmar eliminación</h2>
+
+    <div class="confirmacion">
+        <p>¿Seguro que deseas eliminar la calificación de <strong>{{ calificacion.rut_empresa }}</strong> del año <strong>{{ calificacion.anio }}</strong>?</p>
+
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="boton eliminar">Sí, eliminar</button>
+            <a href="{% url 'listar' %}" class="boton editar">Cancelar</a>
+        </form>
+    </div>
+</body>
+</html>
