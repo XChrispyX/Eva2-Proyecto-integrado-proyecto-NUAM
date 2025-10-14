@@ -28,7 +28,7 @@ El sistema soporta operaciones en tres monedas (CLP, PEN y COP), con CRUD comple
 
 
 # Clonar el repositorio
-git clone https://github.com/MiKhali01/NUAM_BackEnd.git
+git clone https://github.com/XChrispyX/NUAM_BackEnd.git
 cd NUAM_BackEnd
 
 # Crear entorno virtual
