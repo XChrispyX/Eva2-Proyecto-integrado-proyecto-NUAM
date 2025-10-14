@@ -28,8 +28,8 @@ El sistema soporta operaciones en tres monedas (CLP, PEN y COP), con CRUD comple
 
 
 # Clonar el repositorio
-git clone https://github.com/XChrispyX/NUAM_BackEnd.git
-cd NUAM_BackEnd
+git clone https://github.com/XChrispyX/Eva2-Proyecto-integrado-proyecto-NUAM.git
+cd Eva2-Proyecto-integrado-proyecto-NUAM
 
 # Crear entorno virtual
 python -m venv .venv
