@@ -56,14 +56,12 @@ El proyecto incluye:
 
 ### 1️⃣ Clonar el repositorio
 
-<<<<<<< HEAD
 git clone https://github.com/MiKhali01/NUAM_BackEnd.git
 cd NUAM_BackEnd
-=======
+
 # Clonar el repositorio
 git clone https://github.com/XChrispyX/Eva2-Proyecto-integrado-proyecto-NUAM.git
 cd Eva2-Proyecto-integrado-proyecto-NUAM
->>>>>>> 55189dadf4388b6ad3fb397a0a0a017d0af61db6
 
 ### Crear y activar el entorno virtual
 
@@ -141,3 +139,67 @@ Content-Type: application/json
   "monto": 1500000,
   "moneda": "CLP"
 }
+### Detalle / Modificacion / Eliminacion
+GET    /api/calificaciones/<id>/
+PUT    /api/calificaciones/<id>/
+PATCH  /api/calificaciones/<id>/
+DELETE /api/calificaciones/<id>/
+
+### Conversion de moneda (HTTPS)
+POST /api/convertir-monto/
+{
+  "monto": 1000,
+  "moneda_origen": "CLP",
+  "moneda_destino": "PEN"
+}
+
+### 📡 Kafka – Productor y Consumidor
+## Productor
+
+Cada vez que se crea una calificación, se envía un mensaje JSON al topic:
+
+nuam_calificaciones
+
+
+## Consumidor
+
+Ejecutar:
+
+docker-compose exec nuam_app python manage.py run_kafka_consumer
+
+Si Kafka está activo, aparecerán mensajes al crear registros.
+
+### 📝 Logging y Manejo de Errores
+
+El sistema implementa:
+
+Logging estructurado en archivo nuam.log
+
+Manejo de errores con try/except
+
+Respuestas JSON claras para errores de API
+
+Validación de campos faltantes
+
+Manejo de errores de Kafka (producto, consumidor)
+
+## Estructura del proyecto
+NUAM_BackEnd/
+│
+├── core_app/
+│   ├── models.py
+│   ├── views.py
+│   ├── urls.py
+│   ├── signals.py
+│   ├── management/
+│   │   └── commands/run_kafka_consumer.py
+│   └── templates/
+│
+├── nuam/
+│   ├── settings.py
+│   ├── urls.py
+│
+├── docker-compose.yml
+├── Dockerfile
+├── requirements.txt
+└── README.md
