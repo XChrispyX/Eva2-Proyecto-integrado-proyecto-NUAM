@@ -182,24 +182,3 @@ Respuestas JSON claras para errores de API
 Validación de campos faltantes
 
 Manejo de errores de Kafka (producto, consumidor)
-
-## Estructura del proyecto
-NUAM_BackEnd/
-│
-├── core_app/
-│   ├── models.py
-│   ├── views.py
-│   ├── urls.py
-│   ├── signals.py
-│   ├── management/
-│   │   └── commands/run_kafka_consumer.py
-│   └── templates/
-│
-├── nuam/
-│   ├── settings.py
-│   ├── urls.py
-│
-├── docker-compose.yml
-├── Dockerfile
-├── requirements.txt
-└── README.md
