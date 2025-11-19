@@ -56,8 +56,14 @@ El proyecto incluye:
 
 ### 1️⃣ Clonar el repositorio
 
+<<<<<<< HEAD
 git clone https://github.com/MiKhali01/NUAM_BackEnd.git
 cd NUAM_BackEnd
+=======
+# Clonar el repositorio
+git clone https://github.com/XChrispyX/Eva2-Proyecto-integrado-proyecto-NUAM.git
+cd Eva2-Proyecto-integrado-proyecto-NUAM
+>>>>>>> 55189dadf4388b6ad3fb397a0a0a017d0af61db6
 
 ### Crear y activar el entorno virtual
 
