@@ -1,53 +1,137 @@
-# Proyecto NUAM Gestión de Calificaciones Tributarias
+# Proyecto NUAM – Gestión de Calificaciones Tributarias
 
-Desarrollado por: Michelle Villalobos, Christian Aguila y Diego Poblete
-Carrera: Analista Programador - INACAP  
-Profesor: Javier Arturo Garcia Barrientos
-Fecha: Octubre 2025
+**Integrantes:**  
+- Michelle Villalobos  
+- Christian Aguila  
+- Diego Poblete  
 
-## Descripción del Proyecto
-Aplicación web desarrollada en Django, que permite gestionar las calificaciones tributarias de la empresa NUAM, integrando los mercados financieros de Chile, Perú y Colombia.  
-El sistema soporta operaciones en tres monedas (CLP, PEN y COP), con CRUD completo de registros y almacenamiento seguro en base de datos.
+**Carrera:** Analista Programador – INACAP  
+**Profesor:** Javier Arturo García Barrientos  
+**Fecha:** Octubre 2025  
 
-## Funcionalidades Principales
-- CRUD de calificaciones tributarias.
-- Campo de tipo de moneda (CLP / PEN / COP).
-- Roles y usuarios.
-- Validación de datos.
-- Panel de administración (superusuario Django).
-- Interfaz visual con HTML, CSS y JavaScript.
+---
 
-## Tecnologías Utilizadas
+## 📌 Descripción General
+
+Sistema web desarrollado en **Django**, orientado a la gestión de calificaciones tributarias para la empresa **NUAM**, entidad financiera que integra mercados de Chile, Perú y Colombia.
+
+El proyecto incluye:
+
+- CRUD completo de calificaciones tributarias  
+- Gestión de usuarios y roles  
+- Conversión de montos entre **CLP, PEN y COP** mediante API externa HTTPS  
+- API REST propia para operar vía JSON  
+- Integración con **Kafka (Producer / Consumer)** mediante docker-compose  
+- Logging estructurado y manejo de errores  
+
+---
+
+## 🚀 Funcionalidades Principales
+
+- Crear, listar, editar y eliminar calificaciones tributarias  
+- Selección de moneda (CLP / PEN / COP)  
+- Panel administrativo de Django  
+- API REST completa (GET, POST, PUT/PATCH, DELETE)  
+- Conversión de moneda vía API HTTPS  
+- Producer Kafka (envío de datos al topic)  
+- Consumer Kafka (lectura de eventos)  
+- Logging en archivo `nuam.log`
+
+---
+
+## 🛠 Tecnologías Utilizadas
+
 - Python 3.13  
 - Django 5.2.7  
 - SQLite3  
 - HTML5 / CSS3 / JavaScript  
+- API externa: https://api.exchangerate.host (HTTPS)  
+- Kafka + Zookeeper (Docker)  
+- Docker y Docker Compose  
 - Entorno virtual `.venv`
 
-## Instalación y Configuración
+---
 
+# 📦 **Ejecución del Proyecto (Modo Local con .venv)**
 
-# Clonar el repositorio
+### 1️⃣ Clonar el repositorio
+
 git clone https://github.com/MiKhali01/NUAM_BackEnd.git
 cd NUAM_BackEnd
 
-# Crear entorno virtual
-python -m venv .venv
-# Activar entorno
-# En Windows:
-.venv\Scripts\activate
-# En Linux/Mac:
-source .venv/bin/activate
+### Crear y activar el entorno virtual
 
-# Instalar dependencias
+Windows
+
+python -m venv .venv
+.venv\Scripts\activate
+
+Linux/Mac
+
+python3 -m venv .venv
+source .venv/bin/activat
+
+### Instalar dependencias
+
 pip install -r requirements.txt
 
-# Migrar base de datos
+### Migrar base de datos
+
 python manage.py makemigrations
 python manage.py migrate
 
-# Crear superusuario
+### Crear superusuario
+
 python manage.py createsuperuser
 
-# Ejecutar el servidor
+
+### Ejecutar servidor
+
 python manage.py runserver
+
+Acceder en:
+👉 http://127.0.0.1:8000
+
+👉 http://127.0.0.1:8000/admin
+
+### 🐳 Ejecución con Docker
+
+El proyecto incluye un Dockerfile y un docker-compose.yml listo para levantar:
+
+- Django (nuam_app)
+
+- Kafka
+
+- Zookeeper
+
+### Levantar todo el entorno
+docker-compose up -d --build
+
+### Aplicar migraciones dentro del contenedor
+docker-compose exec nuam_app python manage.py migrate
+
+### Crear superusuario
+docker-compose exec nuam_app python manage.py createsuperuser
+
+### Ejecutar el consumer Kafka
+docker-compose exec nuam_app python manage.py run_kafka_consumer
+
+
+La aplicación queda disponible en:
+👉 http://localhost:8080
+
+### 🌐 API REST
+
+### Obtener todas las calificaciones
+GET /api/calificaciones/
+
+### Crear calificacion
+POST /api/calificaciones/
+Content-Type: application/json
+{
+  "rut_empresa": "11111111-1",
+  "anio": 2025,
+  "instrumento": "Acciones",
+  "monto": 1500000,
+  "moneda": "CLP"
+}
