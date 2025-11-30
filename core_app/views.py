@@ -175,9 +175,9 @@ def api_convertir_monto(request):
     """
     POST:
     {
-      "monto": 1000,
-      "moneda_origen": "CLP",
-      "moneda_destino": "PEN"
+        "monto": 1000,
+        "moneda_origen": "CLP",
+        "moneda_destino": "PEN"
     }
     """
     try:
@@ -217,3 +217,39 @@ def api_convertir_monto(request):
         "moneda_destino": moneda_destino,
         "monto_convertido": resultado
     }, status=200)
+    
+logger = logging.getLogger(__name__)
+
+
+def dashboard_monedas(request):
+    """
+    Consume el microservicio FastAPI de monedas y muestra un dashboard
+    con los valores de CLP, COL, SOL y UF.
+    """
+    api_url = "http://127.0.0.1:8001/api/monedas/"
+
+    monedas = {
+        "CLP": 0,
+        "COL": 0,
+        "SOL": 0,
+        "UF": 0,
+        "source": "desconocido",
+        "error": None,
+    }
+
+    try:
+        resp = requests.get(api_url, timeout=5)
+        resp.raise_for_status()
+        data = resp.json()
+
+        monedas["CLP"] = data.get("CLP", 0)
+        monedas["COL"] = data.get("COL", 0)
+        monedas["SOL"] = data.get("SOL", 0)
+        monedas["UF"] = data.get("UF", 0)
+        monedas["source"] = data.get("source", "api")
+
+    except Exception as e:
+        logger.exception("Error al consumir el microservicio de monedas")
+        monedas["error"] = "No se pudieron obtener los valores de las monedas."
+
+    return render(request, "dashboard.html", {"monedas": monedas})

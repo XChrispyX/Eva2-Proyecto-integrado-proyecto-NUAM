@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard de Monedas - NUAM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Fuente básica y estilos simples -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f3f4f6;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: #1f2937;
+            color: #fff;
+            padding: 16px 24px;
+        }
+        header h1 {
+            margin: 0;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 24px auto;
+            padding: 16px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .card {
+            background: #f9fafb;
+            border-radius: 8px;
+            padding: 12px 16px;
+            border: 1px solid #e5e7eb;
+        }
+        .card h3 {
+            margin: 0;
+            font-size: 14px;
+            color: #6b7280;
+        }
+        .card p {
+            margin: 4px 0 0;
+            font-size: 18px;
+            font-weight: bold;
+            color: #111827;
+        }
+        .error {
+            padding: 12px;
+            background: #fee2e2;
+            color: #b91c1c;
+            border-radius: 6px;
+            margin-bottom: 16px;
+            border: 1px solid #fecaca;
+        }
+        .source {
+            font-size: 12px;
+            color: #6b7280;
+            margin-top: 8px;
+        }
+        a.volver {
+            display: inline-block;
+            margin-bottom: 16px;
+            text-decoration: none;
+            color: #2563eb;
+            font-size: 14px;
+        }
+        a.volver:hover {
+            text-decoration: underline;
+        }
+    </style>
+
+    <!-- CDN de Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<header>
+    <h1>Dashboard de Monedas - NUAM</h1>
+</header>
+
+<div class="container">
+    <a href="/" class="volver">← Volver al listado de calificaciones</a>
+
+    {% if monedas.error %}
+        <div class="error">
+            {{ monedas.error }}
+        </div>
+    {% endif %}
+
+    <div class="cards">
+        <div class="card">
+            <h3>CLP (Peso chileno)</h3>
+            <p>{{ monedas.CLP }}</p>
+        </div>
+        <div class="card">
+            <h3>COL (Peso colombiano)</h3>
+            <p>{{ monedas.COL }}</p>
+        </div>
+        <div class="card">
+            <h3>SOL (Sol peruano)</h3>
+            <p>{{ monedas.SOL }}</p>
+        </div>
+        <div class="card">
+            <h3>UF (Unidad de Fomento)</h3>
+            <p>{{ monedas.UF }}</p>
+        </div>
+    </div>
+
+    <canvas id="monedasChart" height="120"></canvas>
+
+    <div class="source">
+        Origen de datos: {{ monedas.source }}
+    </div>
+</div>
+
+<script>
+    // Datos que vienen desde Django (convertidos a números)
+    const labels = ["CLP", "COL", "SOL", "UF"];
+    const dataValores = [
+        {{ monedas.CLP|default:0 }},
+        {{ monedas.COL|default:0 }},
+        {{ monedas.SOL|default:0 }},
+        {{ monedas.UF|default:0 }}
+    ];
+
+    const ctx = document.getElementById('monedasChart').getContext('2d');
+
+    const monedasChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Valor relativo (base CLP = 1)',
+                data: dataValores,
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>
