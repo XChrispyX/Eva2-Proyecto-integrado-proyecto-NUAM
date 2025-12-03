@@ -226,8 +226,8 @@ def dashboard_monedas(request):
     Consume el microservicio FastAPI de monedas y muestra un dashboard
     con los valores de CLP, COL, SOL y UF.
     """
-    api_url = "http://127.0.0.1:8001/api/monedas/"
-
+    api_url = "http://monedas_service:8001/api/monedas/"
+    resp = requests.get(api_url, timeout=5)
     monedas = {
         "CLP": 0,
         "COL": 0,

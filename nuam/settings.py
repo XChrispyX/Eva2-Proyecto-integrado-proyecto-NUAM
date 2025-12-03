@@ -43,12 +43,13 @@ if not DEBUG:
     SECURE_BROWSER_XSS_FILTER = True
     SECURE_CONTENT_TYPE_NOSNIFF = True
 
-    # Aquí pondrías tu dominio real en producción
-    #CSRF_TRUSTED_ORIGINS = [
-        #"https://tu-dominio.com",
-    #]
+    
+    CSRF_TRUSTED_ORIGINS = [
+        "https://localhost",
+        "https://127.0.0.1",
+        ]
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 
 
 # Application definition
