@@ -173,3 +173,8 @@ LOGGING = {
         },
     },
 }
+
+MONEDAS_API_URL = os.getenv(
+    "MONEDAS_API_URL",
+    "http://127.0.0.1:8001/api/monedas/",
+)

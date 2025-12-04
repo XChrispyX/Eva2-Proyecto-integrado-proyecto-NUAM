@@ -9,6 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import CalificacionTributaria, Usuario
+from django.conf import settings
 
 
 # LISTAR
@@ -226,8 +227,8 @@ def dashboard_monedas(request):
     Consume el microservicio FastAPI de monedas y muestra un dashboard
     con los valores de CLP, COL, SOL y UF.
     """
-    api_url = "http://monedas_service:8001/api/monedas/"
-    resp = requests.get(api_url, timeout=5)
+    api_url = settings.MONEDAS_API_URL #para usar runserver local: http://127.0.0.1:8001/api/monedas/ y docker: http://monedas_service:8001/api/monedas/
+
     monedas = {
         "CLP": 0,
         "COL": 0,

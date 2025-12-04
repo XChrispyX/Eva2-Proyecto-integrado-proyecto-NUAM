@@ -12,6 +12,8 @@ services:
       - kafka
       - monedas_service
     working_dir: /app
+    environment:
+      - MONEDAS_API_URL=http://monedas_service:8001/api/monedas/
     command: python manage.py runserver 0.0.0.0:8000
 
   monedas_service:
