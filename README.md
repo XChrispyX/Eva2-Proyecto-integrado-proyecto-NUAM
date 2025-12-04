@@ -397,7 +397,7 @@ con información relevante de la calificación tributaria.
 
 # Consumidor
 
-# Ejecutar el consumidor dentro del contenedor:
+Ejecutar el consumidor dentro del contenedor:
 
 docker-compose exec nuam_app python manage.py run_kafka_consumer
 
