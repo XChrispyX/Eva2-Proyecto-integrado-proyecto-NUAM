@@ -258,7 +258,9 @@ https://localhost/ (certificado válido por mkcert)
 # Mover los certificados:
 
 ``sudo mkdir -p /etc/apache2/certs``
+
 ``sudo mv localhost+2.pem /etc/apache2/certs/nuam-localhost.pem``
+
 ``sudo mv localhost+2-key.pem /etc/apache2/certs/nuam-localhost-key.pem``
 
 # VirtualHost HTTPS en Linux
@@ -292,7 +294,9 @@ Crear archivo de sitio, por ejemplo:
 # Habilitar el sitio y el puerto 443
 
 ``sudo a2ensite nuam-https.conf``
+
 ``sudo a2enmod ssl``
+
 ``sudo systemctl reload apache2``
 
 Con Docker corriendo (docker-compose up -d --build), el sistema queda disponible en:

@@ -42,7 +42,7 @@ if not DEBUG:
     # Cabeceras de seguridad extras
     SECURE_BROWSER_XSS_FILTER = True
     SECURE_CONTENT_TYPE_NOSNIFF = True
-
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
     
     CSRF_TRUSTED_ORIGINS = [
         "https://localhost",
@@ -51,6 +51,10 @@ if not DEBUG:
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://localhost",
+    "https://127.0.0.1",
+]
 
 # Application definition
 
